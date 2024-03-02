@@ -1,0 +1,6 @@
+{
+    "/mengjin": {
+        "target": "http://localhost",
+        "secure": false
+    }
+}

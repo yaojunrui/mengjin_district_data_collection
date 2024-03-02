@@ -1,0 +1,8 @@
+<div class="root">
+    <button mat-flat-button color="primary" class="w100" (click)="onAddHousing()">添加小区</button>
+    <div class="line"></div>
+    <div class="rounded-rectangle" *ngFor="let item of housings" (click)="onSelectHosing(item)" longPress
+        (mouseLongPress)="onLongPress(item)">
+        {{item.housing_name}}
+    </div>
+</div>

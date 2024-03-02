@@ -1,0 +1,39 @@
+<!-- 在你的组件模板中 -->
+
+<h2 mat-dialog-title>添加楼栋</h2>
+<mat-checkbox class="example-margin" (change)="onChange($event)">每单元户数不同</mat-checkbox>
+
+<div mat-dialog-content style="display: flex; flex-direction: column; align-items: center;">
+
+    <mat-form-field>
+        <mat-label>楼号:</mat-label>
+        <input matInput [(ngModel)]="data.building_number">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>楼层数:</mat-label>
+        <input matInput type="number" [(ngModel)]="data.floor">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isNormal">
+        <mat-label>单元数:</mat-label>
+        <input matInput type="number" [(ngModel)]="countUnit">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isNormal">
+        <mat-label>每单元单层户数:</mat-label>
+        <input matInput type="number" [(ngModel)]="countHome">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!isNormal">
+        <mat-label>顺序填写单层单元户数:</mat-label>
+        <input matInput [(ngModel)]="unitArray">
+    </mat-form-field>
+
+</div>
+
+
+<div style="display: flex;justify-content: center;gap: 30px;">
+    <button mat-raised-button color="primary" (click)="onSubmit()">确定</button>
+    <button mat-raised-button color="warn" mat-dialog-close>取消</button>
+</div>

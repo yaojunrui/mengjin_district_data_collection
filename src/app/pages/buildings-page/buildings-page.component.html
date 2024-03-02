@@ -1,0 +1,13 @@
+<div class="root">
+    <div class="w100 flex">
+        <button mat-flat-button color="primary" class="flex-1" (click)="onBack()">返回</button>
+        <button mat-flat-button color="primary" class="flex-2" (click)="onAddBuilding()">添加楼栋</button>
+    </div>
+
+
+    <h1 style="margin-top: 10px;">{{housing.housing_name}}</h1>
+    <div class="line"></div>
+
+    <div *ngFor="let item of buildings" class="hosing" (click)="onSelectBuilding(item)" longPress
+        (mouseLongPress)=" onLongPress(item)">{{item.building_number}}号楼</div>
+</div>

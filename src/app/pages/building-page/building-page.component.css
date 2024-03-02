@@ -1,0 +1,36 @@
+.list-item {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 16px;
+    color: #333333;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-item:hover {
+    background-color: #f2f2f2;
+}
+
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.accordion-container {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+/* 设置 mat-expansion-panel 的样式 */
+.mat-expansion-panel {
+    width: 100%;
+    /* 确保 mat-expansion-panel 充满父容器 */
+}
