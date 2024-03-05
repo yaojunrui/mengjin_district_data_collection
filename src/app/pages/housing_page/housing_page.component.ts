@@ -9,17 +9,18 @@ import { DbService } from '../../services/db.service';
 import { DataService } from '../../services/data.service';
 import { LongPressDirective } from '../../longpress';
 import { query } from '@angular/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-housing_page',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, LongPressDirective],
+  imports: [CommonModule, MatDialogModule, LongPressDirective, MatButtonModule],
   templateUrl: './housing_page.component.html',
   styleUrl: './housing_page.component.css'
 })
 export class HousingPageComponent {
-  constructor(private router: Router, private dialog: MatDialog, private dbservice: DbService, private dataservice: DataService,
-    private cdr: ChangeDetectorRef) {
+  constructor(private router: Router, private dialog: MatDialog, private dbservice: DbService,
+    private dataservice: DataService, private cdr: ChangeDetectorRef) {
     if (!User.id) {
       this.router.navigate(['/login'])
     }

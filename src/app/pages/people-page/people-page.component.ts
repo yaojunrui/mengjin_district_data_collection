@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Data, Route, Router } from '@angular/router';
 import { GlobalVar, User } from '../../user';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { DbService } from '../../services/db.service';
 import { People, People_building, Room_status, TableName } from '../../type';
 import { RoomPersonItemComponent } from "./room-person-item/room-person-item.component";
@@ -12,18 +12,19 @@ import { DataService } from '../../services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonExtensionDialogComponent } from './person-extension-dialog/person-extension-dialog.component';
 import { take } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-people-page',
   standalone: true,
   templateUrl: './people-page.component.html',
   styleUrl: './people-page.component.css',
-  imports: [SelectPeopleComponent, FormsModule, MatRadioModule, CommonModule, RoomPersonItemComponent]
+  imports: [SelectPeopleComponent, FormsModule, MatRadioModule, CommonModule, RoomPersonItemComponent, MatButtonModule]
 })
 export class PeoplePageComponent {
 
   constructor(private route: ActivatedRoute, private dbservice: DbService, private dataservice: DataService,
-    private router: Router, private dialog: MatDialog) {
+    private router: Router, private dialog: MatDialog, private location: Location) {
     if (!GlobalVar.current_building || !GlobalVar.current_housing) {
       this.router.navigate(['/housing'])
     }
@@ -76,7 +77,7 @@ export class PeoplePageComponent {
     })
   }
   onBack() {
-    this.router.navigate(['building'], { queryParams: GlobalVar.current_building })
+    this.location.back()
   }
 
   onSelectPeople(p) {
