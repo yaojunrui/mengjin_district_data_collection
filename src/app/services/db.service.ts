@@ -12,14 +12,15 @@ enum PhpMethodNames {
   GET_ROOM_PEOPLES = "getRoomPeoples",
   GET_USER_INFO = "getUserInfo",
   GET_USER_WORK = "getUserWork",
-  GET_BUILDING_WORK_INFO = "getBuildingWorkInfo",
+  GET_ALL_ROOM_STATUS = "getAllRoomStatus",
   GET_USER_BUILDING_PERSONNEL = "getUserBuildingPersonnel",
   GET_SELECT_RESULT = "getSelectResult",
-  GET_ROOM_WORK_INFO = 'getRoomWorkInfo',
+  GET_ROOM_STATUS = 'getRoomStatus',
   GET_ROOM_WORK_IS_EXISTS = 'getRoomWorkIsExists',
   INSERT = "insert",
   UPDATE = "update",
-  DELETE = "delete"
+  DELETE = "delete",
+  UPDATA_ROOM_STATUS = "updateRoomStatus"
 }
 
 @Injectable({
@@ -60,6 +61,26 @@ export class DbService {
 
   getPeople(type, keyword) {
     return this.exec(PhpMethodNames.GET_PEOPLE, { inputType: type, input: keyword })
+  }
+
+  getRoomPeople(buildingId, roomNumber) {
+    return this.exec(PhpMethodNames.GET_ROOM_PEOPLES, { building_id: buildingId, room_number: roomNumber })
+  }
+
+  updateRoomStatus(data: any) {
+    return this.exec(PhpMethodNames.UPDATA_ROOM_STATUS, data)
+  }
+
+  delete(data) {
+    return this.exec(PhpMethodNames.DELETE, data)
+  }
+
+  getAllRoomStatus(building_id) {
+    return this.exec(PhpMethodNames.GET_ALL_ROOM_STATUS, building_id)
+  }
+
+  getRoomStatus(building_id, room_number) {
+    return this.exec(PhpMethodNames.GET_ROOM_STATUS, { building_id: building_id, room_number: room_number })
   }
 
 }

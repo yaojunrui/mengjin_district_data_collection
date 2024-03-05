@@ -1,0 +1,25 @@
+<div class="root">
+    <mat-form-field>
+        <mat-label>人员姓名</mat-label>
+        <input matInput [(ngModel)]=pName>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>身份证号</mat-label>
+        <input matInput [(ngModel)]=pid>
+
+        <mat-icon svgIcon="random" matSuffix matTooltip="清除" (click)=onRandomPid()></mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>电话号码</mat-label>
+        <input matInput [(ngModel)]=tel>
+        <mat-icon svgIcon="random" matSuffix matTooltip="清除" (click)=onRandomtel()></mat-icon>
+    </mat-form-field>
+    <div style="width: 100px; height: 100px;" [innerHTML]="svgImg">
+    </div>
+
+
+    <div class="btn-container">
+        <button mat-raised-button color="accent" (click)="onCancel()">取消</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()">提交</button>
+    </div>
+</div>

@@ -18,7 +18,7 @@
                 <div *ngFor="let item of unitRoomNumbers" class="list-item" [style.background]="getBgColor(item)"
                     (click)="onClickRoom(item);$event.stopPropagation();">
                     <span>{{item.room_number}}</span>
-                    <!-- <span *ngIf="item.result_message"> {{item.result_message}}</span> -->
+                    <span *ngIf="item.result_message"> {{item.result_message}}</span>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>

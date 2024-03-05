@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { Building, Housing } from '../../type';
-import { CommonModule } from '@angular/common';
+import { Building, Housing, Room_status } from '../../type';
+import { CommonModule, Location } from '@angular/common';
 import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
-import { GlobalVar } from '../../user';
+import { GlobalVar, User } from '../../user';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { DbService } from '../../services/db.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-building-page',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule],
+  imports: [CommonModule, MatExpansionModule, MatButtonModule],
   templateUrl: './building-page.component.html',
   styleUrl: './building-page.component.css'
 })
@@ -16,12 +18,23 @@ export class BuildingPageComponent {
   housing: Housing = {}
   building: Building = {}
   unitRoomNumbers: any[]
+  allRoomStatus: Room_status[] = []
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private dbservice: DbService,
+    private location: Location) {
     // this.building = GlobalVar.current_building
     this.building = this.route.snapshot.queryParams
     // console.log(this.building)
     // console.log("asssssssssss")
+
+    if (!User.id) {
+      this.router.navigate(['login'])
+    }
+  }
+  ngOnInit() {
+    this.getAllRoomStatus().subscribe(res => {
+      this.allRoomStatus = res
+    })
   }
 
   onClickRoom(item) {
@@ -29,14 +42,27 @@ export class BuildingPageComponent {
 
     this.router.navigate(['people'], { queryParams: { buildingId: this.building.id, roomNumber: item.room_number } })
   }
-  getBgColor(item) { }
+  getBgColor(item) {
+    if (item.result == 1) {
+      return "green"
+    }
+    return "white"
+  }
   onClickUnit(i) {
     this.unitRoomNumbers = this.createUnitArray(i)
     console.log(this.unitRoomNumbers)
   }
-  onScroll(event) { }
+  onScroll(event) {
+
+  }
   onEditBuilding() { }
-  onBack() { }
+  onBack() {
+    this.location.back()
+  }
+
+  private getAllRoomStatus() {
+    return this.dbservice.getAllRoomStatus(this.building.id)
+  }
 
   private createUnitArray(unit) {
     const countHome = this.building.unit_home[unit];
@@ -52,13 +78,13 @@ export class BuildingPageComponent {
         let a: any = {};
         a.room_number = roomNumber;
 
-        // for (let k = 0; k < this.buildingInfos.length; k++) {
-        //   const b = this.buildingInfos[k];
-        //   if (b.room_number == roomNumber) {
-        //     a.result = b.result
-        //     a.result_message = b.result_message
-        //   }
-        // }
+        for (let k = 0; k < this.allRoomStatus.length; k++) {
+          const b = this.allRoomStatus[k];
+          if (b.room_number == roomNumber) {
+            a.result = b.result
+            a.result_message = b.result_message
+          }
+        }
         arr.push(a)
       }
     }

@@ -3,7 +3,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Building, Housing } from '../type';
+import { Building, Housing, People } from '../type';
 
 
 
@@ -47,6 +47,18 @@ export class DataService {
   editHousing$ = this._editHousing.asObservable();
   editHousing(data: Housing) {
     this._editHousing.next(data);
+  }
+
+  private _getPeopleExtension = new Subject<any>();
+  getPeopleExtension$ = this._getPeopleExtension.asObservable();
+  getPeopleExtension(data: any) {
+    this._getPeopleExtension.next(data);
+  }
+
+  private _deletePerson = new Subject<People>();
+  deletePerson$ = this._deletePerson.asObservable();
+  deletePerson(data: People) {
+    this._deletePerson.next(data);
   }
 
   private _editBuilding = new Subject<Building>();

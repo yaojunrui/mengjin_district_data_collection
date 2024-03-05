@@ -1,0 +1,22 @@
+.root {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+mat-form-field {
+    margin-bottom: -1em;
+    width: 100%;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+button {
+    flex: 1;
+    margin: 0 30px 0 30px;
+}

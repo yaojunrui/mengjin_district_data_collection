@@ -34,6 +34,10 @@ export class HousingPageComponent {
       const index = this.housings.findIndex(h => h.id = res.id)
       this.housings[index] = res
     })
+
+    if (!User.id) {
+      this.router.navigate(['login'])
+    }
   }
 
   housings: Housing[]

@@ -55,21 +55,26 @@ export class BuildingComponent {
   onSubmit() {
     this.data.unit_home = this.getUnitData()
     if (this.validate()) {
-
-      this.dbservice.insert(TableName.building, this.data).subscribe(res => {
-        this.data.id = res
-        console.log(this.data.id)
-        this.dataservice.addBuilding(this.data)
-        this.matdialogref.close()
+      if (!this.data.id) {
+        this.dbservice.insert(TableName.building, this.data).subscribe(res => {
+          this.data.id = res
+          console.log(this.data.id)
+          this.dataservice.addBuilding(this.data)
+          this.matdialogref.close()
+        }
+        )
       }
-      )
+
+      else {
+        this.dbservice.update(TableName.building, this.data, this.data.id).subscribe(res => {
+          console.log(res)
+          this.dataservice.editBuilding(this.data)
+          this.matdialogref.close()
+        })
+      }
+
     }
-    else {
-      this.dbservice.update(TableName.building, this.data, this.data.id).subscribe(res => {
-        this.dataservice.editBuilding(this.data)
-        this.matdialogref.close()
-      })
-    }
+
 
   }
 

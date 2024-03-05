@@ -8,8 +8,9 @@ import { BuildingComponent } from '../../components/building/building.component'
 import { DataService } from '../../services/data.service';
 import { DbService } from '../../services/db.service';
 import { Location } from '@angular/common';
-import { GlobalVar } from '../../user';
+import { GlobalVar, User } from '../../user';
 import { LongPressDirective } from '../../longpress';
+
 
 @Component({
   selector: 'app-building-page',
@@ -24,10 +25,18 @@ export class BuildingsPageComponent {
     private dbservice: DbService, private location: Location, private router: Router) {
     this.housing = this.route.snapshot.queryParams
     //this.housing = GlobalVar.current_housing
+
+    if (!User.id) {
+      this.router.navigate(['login'])
+    }
   }
 
   ngOnInit() {
     this.getAllBuildings()
+
+    this.dataservice.editBuilding$.subscribe(res => {
+      this.getAllBuildings()
+    })
 
     this.dataservice.addBuilding$.subscribe(res => {
       // this.buildings.push(res)
